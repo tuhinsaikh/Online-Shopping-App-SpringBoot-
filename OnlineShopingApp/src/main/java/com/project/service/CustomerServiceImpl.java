@@ -11,7 +11,7 @@ import com.project.repository.CustomerDao;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 	
-	@Autowired(required = false)
+	@Autowired
 	private CustomerDao cDao;
 	
 

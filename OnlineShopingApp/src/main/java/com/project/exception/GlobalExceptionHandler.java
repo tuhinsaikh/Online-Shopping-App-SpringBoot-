@@ -26,6 +26,18 @@ public class GlobalExceptionHandler {
 	
 	}
 	
+	@ExceptionHandler(CustomerNotFoundException.class)
+	public ResponseEntity<MyErrorDetails> myExceptionHandler1(CustomerNotFoundException cNotFound, WebRequest wr){
+		
+		MyErrorDetails err= new MyErrorDetails();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(cNotFound.getMessage());
+		err.setDetails(wr.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.NOT_FOUND);
+		
+	}
+	
 	
 	
 	@ExceptionHandler(Exception.class)

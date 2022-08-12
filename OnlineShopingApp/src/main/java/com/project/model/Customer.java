@@ -1,5 +1,7 @@
 package com.project.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,24 +25,12 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@NotNull
-	
 	private Integer customerId;
 	private String firstName;
 	private String lastName;
 	private String mobileNumber;
-	private Address address;
+	private List<Address> address;
 	private String email;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 

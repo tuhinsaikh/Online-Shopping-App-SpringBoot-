@@ -11,5 +11,6 @@ public class ServiceLayerOfOrder {
 	@GetMapping("/order")
 	public Order getOrder() {
 		
+		return null;
 	}
 }

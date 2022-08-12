@@ -27,11 +27,11 @@ public class Order {
 	private String orderstatus;
 
 
-//	private Customer customer;
+	private Customer customer;
 	
 //	private List<Prouct>product;
 	
-//	private Address address;
+	private Address address;
 	
 	
 }

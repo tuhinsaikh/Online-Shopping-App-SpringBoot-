@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 
-@Entity
+//@Entity
 public class Order {
 
 	@Id

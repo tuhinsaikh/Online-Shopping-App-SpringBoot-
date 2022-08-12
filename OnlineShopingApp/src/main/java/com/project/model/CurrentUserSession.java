@@ -18,7 +18,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Entity
+//@Entity
 public class CurrentUserSession {
 
 	@Id

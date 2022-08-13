@@ -12,5 +12,7 @@ import com.project.model.Address;
 public interface AddressDao extends JpaRepository<Address, Integer>{
 	
 	public Address findByaddressId(Integer addressId);
+	
+	public List<Address> findAll();
 
 }

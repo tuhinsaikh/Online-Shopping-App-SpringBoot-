@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.project.model.Customer;
 
-@Service
 public interface CustomerService {
 	
 	
@@ -16,7 +15,7 @@ public interface CustomerService {
 	
 	public Customer removeCustomer(Customer customer);
 	
-	public Customer viewCustomer(Customer customer);
+	public Customer viewCustomer(Integer id);
 	
 	public List<Customer> viewAllCustomerByLocation(String location);
 	

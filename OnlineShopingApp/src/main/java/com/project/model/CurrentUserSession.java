@@ -29,6 +29,14 @@ public class CurrentUserSession {
 	
 	private String uniqueId;
 	private LocalDateTime time;
+	public CurrentUserSession(Integer userId, String uniqueId, LocalDateTime time) {
+		super();
+		UserId = userId;
+		this.uniqueId = uniqueId;
+		this.time = time;
+	}
+	
+	
 	
 	
 }

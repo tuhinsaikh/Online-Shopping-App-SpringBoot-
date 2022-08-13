@@ -1,7 +1,11 @@
 package com.project.controller;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,8 +30,17 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public String userLoginController(@RequestBody UserDTO userDto) {
-		//System.out.println(userDto);
 		return ulogService.userLogin(userDto);
+	}
+	
+	@PutMapping("/updateUser/{key}")
+	public User updateUserCredentialController(@RequestBody User user, @PathVariable String key) {
+		return uService.updateUserCredential(user, key);
+	}
+	
+	@PostMapping("/logout/{key}")
+	public String userLogoutController(@PathVariable String key) {
+		return uService.userLogout(key);
 	}
 	
 }

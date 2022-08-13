@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
 	err.setMessage(ie.getMessage());
 	err.setDetails(wr.getDescription(false));
 	return new ResponseEntity<MyErrorDetails>(err,HttpStatus.BAD_REQUEST);
-	
+	}
 
 	
 	@ExceptionHandler(Exception.class)

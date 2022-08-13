@@ -9,6 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -26,8 +29,20 @@ public class Product {
 //	private String manufacturer;
 //	private Integer quantity;
 	
-	@ManyToMany(cascade = CascadeType.ALL ,mappedBy = "products")
-	List<Category> categories= new ArrayList<>();
+	//@ManyToMany(cascade = CascadeType.ALL ,mappedBy = "products")
+	//List<Category> categories= new ArrayList<>();
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Category category;
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
 	public Integer getProductId() {
 		return productId;
@@ -53,28 +68,24 @@ public class Product {
 		this.price = price;
 	}
 
-	public List<Category> getCategories() {
-		return categories;
-	}
+	
 
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
-	}
-
+	
+	
 	@Override
 	public String toString() {
-		return "Product [productId=" + productId + ", productName=" + productName + ", price=" + price + ", categories="
-				+ categories + "]";
+		return "Product [productId=" + productId + ", productName=" + productName + ", price=" + price + ", category="
+				+ category + "]";
 	}
 
-	public Product(Integer productId, String productName, Double price, List<Category> categories) {
+	public Product(Integer productId, String productName, Double price, Category category) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
 		this.price = price;
-		this.categories = categories;
+		this.category = category;
 	}
-	
+
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}

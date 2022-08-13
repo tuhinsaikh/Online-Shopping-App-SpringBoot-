@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.model.Category;
-import com.project.model.Course;
+//import com.project.model.Course;
 import com.project.model.Product;
 import com.project.repository.CategoryDao;
 import com.project.repository.ProductDao;

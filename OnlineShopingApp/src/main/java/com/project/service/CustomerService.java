@@ -15,7 +15,7 @@ public interface CustomerService {
 	
 	public Customer removeCustomer(Customer customer);
 	
-	public Customer viewCustomer(Customer customer);
+	public Customer viewCustomer(Integer id);
 	
 	public List<Customer> viewAllCustomerByLocation(String location);
 	

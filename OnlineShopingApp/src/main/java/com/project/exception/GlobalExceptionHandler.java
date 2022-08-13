@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
 	err.setDetails(wr.getDescription(false));
 	return new ResponseEntity<MyErrorDetails>(err,HttpStatus.BAD_REQUEST);
 	
-	}
+
 	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<MyErrorDetails> myExpHandler(Exception ie,WebRequest wr) {

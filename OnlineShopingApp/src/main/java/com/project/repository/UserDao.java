@@ -10,6 +10,8 @@ import com.project.model.User;
 @Repository
 public interface UserDao extends JpaRepository<User, Integer>{
 
-	public Optional<User> findByMobile(String mobile);
+	//public Optional<User> findByMobile(String mobile);
+	
+	public User findByMobile(String mobile);
 
 }

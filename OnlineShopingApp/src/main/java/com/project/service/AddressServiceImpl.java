@@ -1,5 +1,7 @@
 package com.project.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,21 +37,43 @@ public class AddressServiceImpl implements AddressService{
 	}
 
 	@Override
-	public Address removeAddress(Address add) {
-		// TODO Auto-generated method stub
-		return null;
+	public Address removeAddress(Integer id) {
+		
+		Address a = aDao.findByaddressId(id);
+		
+		if(a!=null) {
+			aDao.delete(a);
+			return a;
+		}
+		else {
+			throw new AddressNotFound("No address exists");
+		}
 	}
 
 	@Override
-	public Address viewAllAddress(Integer addressId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Address viewAddress(Integer addressId) {
+		Address a = aDao.findByaddressId(addressId);
+		
+		if(a!=null) {
+			return a;
+		}
+		else
+		{
+			throw new AddressNotFound("No address exists");
+		}
 	}
 
 	@Override
-	public Address viewAddress(Address add) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Address> viewAllAddress(){
+		List<Address> alist=aDao.findAll();
+		if(alist!=null) {
+			return alist;
+		}
+		else
+		{
+			throw new AddressNotFound("No address exists");
+		}
+		
 	}
 	
 	

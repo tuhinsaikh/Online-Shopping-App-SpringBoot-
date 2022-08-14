@@ -2,9 +2,9 @@ package com.project.service;
 
 
 
-import com.project.model.Product;
+import com.project.model.Products;
 
 
 public interface ProductService {
-	public Product saveProduct(Product product);
+	public Products saveProduct(Products product);
 }

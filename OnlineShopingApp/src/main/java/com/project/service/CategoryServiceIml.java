@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.model.Category;
-import com.project.model.Product;
+import com.project.model.Products;
 import com.project.repository.CategoryDao;
 import com.project.repository.ProductDao;
 
@@ -27,7 +27,7 @@ public class CategoryServiceIml implements CategoryService{
 	private CategoryDao cDao;
 	
 	@Override
-	public Category addCategory(Category category) {
+	public Category addCategory(CategoryEnum category) {
 		// TODO Auto-generated method stub
 //		List<Category> categories= product.getCategories();
 //		
@@ -39,13 +39,14 @@ public class CategoryServiceIml implements CategoryService{
 //		
 //		return pDao.save(product);
 		
-	List<Product>	products=category.getProducts();
+	List<Products>	products=category.getProducts();
 	
 		if(products.size()!=0) {
-			for(Product prd: products) {
+			for(Products prd: products) {
 				
 				prd.setCategory(category);
 				//pDao.save(prd);
+//				prd.setCategory(null);
 				
 			}
 		}

@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.project.model.Product;
+import com.project.model.Products;
+
+
 
 @Repository
-public interface ProductDao extends JpaRepository<Product, Integer>{
+public interface ProductDao extends JpaRepository<Products, Integer>{
 
-	List<Product> findByProductName(String productName);
+	List<Products> findByProductName(String productName);
 }

@@ -33,7 +33,7 @@ public class MyOrder {
 	Customer customer;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	List<Product>productlist;
+	List<Products>productlist;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	Address address;

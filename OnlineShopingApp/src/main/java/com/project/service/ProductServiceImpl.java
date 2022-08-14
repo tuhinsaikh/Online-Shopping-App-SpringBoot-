@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.model.Category;
 //import com.project.model.Course;
-import com.project.model.Product;
+import com.project.model.Products;
 import com.project.repository.CategoryDao;
 import com.project.repository.ProductDao;
 
@@ -23,7 +23,7 @@ public class ProductServiceImpl implements ProductService{
 	
 	
 	@Override
-	public Product saveProduct(Product product) {
+	public Products saveProduct(Products product) {
 		
 //		List<Category> categories= product.getCategories();
 //		

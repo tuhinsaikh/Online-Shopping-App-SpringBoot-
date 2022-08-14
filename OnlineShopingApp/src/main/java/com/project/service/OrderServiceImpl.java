@@ -17,7 +17,7 @@ import com.project.model.Address;
 import com.project.model.CurrentUserSession;
 import com.project.model.Customer;
 import com.project.model.MyOrder;
-import com.project.model.Product;
+import com.project.model.Products;
 import com.project.model.User;
 import com.project.repository.AddressDao;
 import com.project.repository.CurrentUserSessionDao;
@@ -65,11 +65,11 @@ public class OrderServiceImpl implements OrderService{
 			throw new CustomerNotFoundException("Customer not logged in");
 		}
 		
-		List<Product> products = order.getProductlist();
+		List<Products> products = order.getProductlist();
 		
-		for(Product p:products) {
+		for(Products p:products) {
 			
-			List<Product> pr = productDao.findByProductName(p.getProductName());
+			List<Products> pr = productDao.findByProductName(p.getProductName());
 			if(pr.size()<=0) {
 				throw new CustomerNotFoundException("Product not found");
 			}

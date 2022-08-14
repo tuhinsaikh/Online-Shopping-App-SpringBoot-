@@ -26,14 +26,14 @@ public class Category {
 	//@ManyToMany(cascade = CascadeType.ALL)
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "category")
 	//@JsonIgnore
-	private List<Product> products= new ArrayList<>();
+	private List<Products> products= new ArrayList<>();
 
 	@Override
 	public String toString() {
 		return "Category [catId=" + catId + ", categoryName=" + categoryName + ", products=" + products + "]";
 	}
 
-	public Category(Integer catId, String categoryName, List<Product> products) {
+	public Category(Integer catId, String categoryName, List<Products> products) {
 		super();
 		this.catId = catId;
 		this.categoryName = categoryName;
@@ -60,11 +60,11 @@ public class Category {
 		this.categoryName = categoryName;
 	}
 
-	public List<Product> getProducts() {
+	public List<Products> getProducts() {
 		return products;
 	}
 
-	public void setProducts(List<Product> products) {
+	public void setProducts(List<Products> products) {
 		this.products = products;
 	}
 	

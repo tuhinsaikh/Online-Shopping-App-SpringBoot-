@@ -16,10 +16,6 @@ import com.project.service.OrderService;
 public class OrderController {
 
 	@Autowired
-	OrderService orderservice;
-	@PostMapping("/")
-	public ResponseEntity<MyOrder>saveOrde(@RequestBody MyOrder order){
-		MyOrder myorder= orderservice.addorder(order);
-		return new ResponseEntity<MyOrder>(myorder,HttpStatus.ACCEPTED);
-	}
+	private OrderService orderservice;
+
 }

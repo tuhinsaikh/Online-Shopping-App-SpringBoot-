@@ -23,7 +23,8 @@ import com.project.repository.AddressDao;
 import com.project.repository.CurrentUserSessionDao;
 import com.project.repository.CustomerDao;
 import com.project.repository.OrderDao;
-import com.project.repository.ProductDao;
+import com.project.repository.ProductsDao;
+import com.project.repository.ProductsDao;
 import com.project.repository.UserDao;
 
 
@@ -45,7 +46,7 @@ public class OrderServiceImpl implements OrderService{
 	private CurrentUserSessionDao currUserSessDao;
 	
 	@Autowired
-	private ProductDao productDao;
+	private ProductsDao productDao;
 	
 	@Autowired
 	private AddressDao addressDao;

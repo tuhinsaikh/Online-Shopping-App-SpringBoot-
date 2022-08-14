@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,8 +23,9 @@ public class Category {
 	private Integer catId;
 	private String categoryName;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JsonIgnore
+	//@ManyToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "category")
+	//@JsonIgnore
 	private List<Product> products= new ArrayList<>();
 
 	@Override

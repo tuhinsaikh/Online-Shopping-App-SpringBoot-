@@ -25,15 +25,16 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public Product saveProduct(Product product) {
 		
-		List<Category> categories= product.getCategories();
-		
-		for(Category cat:categories) {
-			
-			cat.getProducts().add(product);
-			cDao.save(cat);
-		}
-		
-		return pDao.save(product);
+//		List<Category> categories= product.getCategories();
+//		
+//		for(Category cat:categories) {
+//			
+//			cat.getProducts().add(product);
+//			cDao.save(cat);
+//		}
+//		
+//		return pDao.save(product);
+		return null;
 	}
 
 	

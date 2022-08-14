@@ -13,6 +13,8 @@ public interface AddressDao extends JpaRepository<Address, Integer>{
 	
 	public Address findByaddressId(Integer addressId);
 	
-	public List<Address> findAll();
+	public List<Address> findByCity(String city);
+	
+	
 
 }

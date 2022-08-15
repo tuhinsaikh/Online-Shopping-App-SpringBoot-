@@ -11,16 +11,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<<<<<<< HEAD
-import lombok.ToString;
-
-
-
-@Data
-@AllArgsConstructor
+@ToString
 @NoArgsConstructor
-=======
->>>>>>> ef463751665b900a1795e9e93ca81c455c6256a6
+@AllArgsConstructor
+@Data
+
 @Entity
 public class Products {
 		
@@ -38,8 +33,4 @@ public class Products {
 	@Enumerated(EnumType.STRING)
 	private CategoryEnum category;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> ef463751665b900a1795e9e93ca81c455c6256a6
 }

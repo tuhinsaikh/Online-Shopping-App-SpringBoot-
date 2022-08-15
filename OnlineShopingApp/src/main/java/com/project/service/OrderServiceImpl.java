@@ -1,7 +1,7 @@
 package com.project.service;
 
 import java.time.LocalDateTime;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +54,9 @@ public class OrderServiceImpl implements OrderService{
 	//parameter customerId,addressId
 	@Override
 	public MyOrder addOrder(MyOrder order, Integer customerId, Integer addressId) {
+		
+		order.setLocaldtetime(LocalDateTime.now());
+		order.setOrderstatus("accepted");
 		Optional< Customer> databaseCustomer = customerDao.findById(customerId);
 		
 		if(databaseCustomer.isEmpty()) {
@@ -67,14 +70,26 @@ public class OrderServiceImpl implements OrderService{
 		}
 		
 		List<Products> products = order.getProductlist();
-		
+		List<Products> products2=new ArrayList<Products>();
 		for(Products p:products) {
 			
 			List<Products> pr = productDao.findByProductName(p.getProductName());
 			if(pr.size()<=0) {
+			
 				throw new CustomerNotFoundException("Product not found");
 			}
+//			System.out.println(pr);
+			for(Products prd:pr) {
+				if(prd.getPrice().equals(p.getPrice())) {
+					products2.add(prd);
+				}
+				
+			}
+			
+			
 		}
+	
+		 order.setProductlist(products2);
 		
 		List<Address> customerAddr = customer.getAddresslist();
 		int count = 0;
@@ -87,6 +102,83 @@ public class OrderServiceImpl implements OrderService{
 		order.setCustomer(customer);	
 		return orderdao.save(order);
 	}
+
+	@Override
+	public List<MyOrder> viewOrder() {
+		List<MyOrder>allOrder=orderdao.findAll();
+		return allOrder;
+	}
+
+	@Override
+	public MyOrder viewOrderByCustomerId(Integer custiomerId) {
+		List<MyOrder>allOrder=orderdao.findAll();
+		
+		for(MyOrder order:allOrder) {
+			if(order.getCustomer().getCustomerId()==custiomerId) {
+			return order;
+			}
+		}
+		throw new CustomerNotFoundException("Order not found");
+	}
+
+	@Override
+	public List<MyOrder> findOrderByUserName(String FirstName, String LastName) {
+		List<MyOrder>allOrder=orderdao.findAll();
+		List<MyOrder>findAllByName=new ArrayList<MyOrder>();
+		for(MyOrder order:allOrder) {
+			if(order.getCustomer().getFirstName().equals(FirstName)&& order.getCustomer().getLastName().equals(LastName)) {
+			findAllByName.add(order);
+			}
+			
+		}
+//		System.out.println(findAllByName);
+		if(findAllByName.size()==0) {
+			throw new CustomerNotFoundException("Order not found");
+		}else {
+			return findAllByName;
+		}
+	}
+
+	@Override
+	public MyOrder updateOrder(Integer custiomerId, MyOrder order) {
+		List<MyOrder>allOrder=orderdao.findAll();
+		int count=0;
+		MyOrder findord=new MyOrder();
+		for(MyOrder find:allOrder) {
+			if(find.getCustomer().getCustomerId()==custiomerId) {
+				findord=find;
+				count++;
+			}
+
+		}
+		if(count==0) {
+			throw new CustomerNotFoundException("Order not found");
+		}
+	
+		
+		
+		List<Products> products2=order.getProductlist();
+		List<Products> products = findord.getProductlist();
+		return findord;
+		
+		
+	}
+
+	@Override
+	public MyOrder removeOrder(Integer custiomerId) {
+		List<MyOrder>allOrder=orderdao.findAll();
+		
+		for(MyOrder order:allOrder) {
+			if(order.getCustomer().getCustomerId()==custiomerId) {
+			 orderdao.delete(order);
+			 
+			 return order;
+			}
+		}
+		
+		throw new CustomerNotFoundException("Order not found");
+	}
+
 
 	
 }

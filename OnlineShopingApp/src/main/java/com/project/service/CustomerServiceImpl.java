@@ -149,8 +149,16 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Address addAddress(Address address) {
-		return	aDao.save(address);
+	public Customer addAddress(Address address,Integer customerId) {
+	Optional<Customer>optional=cDao.findById(customerId);
+		if(optional!=null) {
+			Customer customer=optional.get();
+			 customer.getAddresslist().add(address);
+		}
+//		return	aDao.save(address);
+		
+		Optional<Customer> optCustomer= cDao.findById(customerId);
+		return optCustomer.get();
 		 
 	}
 

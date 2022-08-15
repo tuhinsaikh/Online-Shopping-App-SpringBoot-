@@ -54,8 +54,11 @@ public class CustomerController {
 		
 	}
 	
-	
-	
+	@PutMapping("/addAddress/{customerId}")
+	public Customer addAddressCustomer(@RequestBody Address address, @PathVariable Integer customerId) {
+		return cService.addAddress(address,customerId);
+	}
+//	
 	
 	
 	

@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.exception.CategoryNotFoundException;
+
 import com.project.exception.ProductNotFoundException;
 import com.project.model.CategoryEnum;
 import com.project.model.Products;

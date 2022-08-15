@@ -13,7 +13,7 @@ public interface OrderService {
 	
 	public MyOrder viewOrderByCustomerId(Integer custiomerId);
 	
-	public List<MyOrder>findOrderByUserName(String FirstName,String LastName);
+	public List<MyOrder>findOrderByUserName(String FirstName,String LastName,String mobileNo);
 	
 	public MyOrder updateOrder(Integer custiomerId,MyOrder order);
 	

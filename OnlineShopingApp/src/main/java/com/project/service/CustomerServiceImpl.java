@@ -148,6 +148,12 @@ public class CustomerServiceImpl implements CustomerService {
 		return null;
 	}
 
+	@Override
+	public Address addAddress(Address address) {
+		return	aDao.save(address);
+		 
+	}
+
 	
 	
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.project.model.Address;
 import com.project.model.Customer;
 
 public interface CustomerService {
@@ -19,5 +20,6 @@ public interface CustomerService {
 	
 	public List<Customer> viewAllCustomerByLocation(String location);
 	
+	public Address addAddress(Address address);
 
 }

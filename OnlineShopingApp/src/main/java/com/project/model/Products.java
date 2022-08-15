@@ -7,6 +7,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
 public class Products {
 		
@@ -24,53 +33,7 @@ public class Products {
 	@Enumerated(EnumType.STRING)
 	private CategoryEnum category;
 
-	@Override
-	public String toString() {
-		return "Products [productId=" + productId + ", productName=" + productName + ", price=" + price + ", category="
-				+ category + "]";
-	}
-
-	public Products(Integer productId, String productName, Double price, CategoryEnum category) {
-	super();
-	this.productId = productId;
-	this.productName = productName;
-	this.price = price;
-	this.category = category;
-}
-
-	public Products() {
-		// TODO Auto-generated constructor stub
-	}
 	
-	public Integer getProductId() {
-		return productId;
-	}
 
-	public void setProductId(Integer productId) {
-		this.productId = productId;
-	}
 
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	public CategoryEnum getCategory() {
-		return category;
-	}
-
-	public void setCategory(CategoryEnum category) {
-		this.category = category;
-	}
 }

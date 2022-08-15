@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.model.Address;
 import com.project.model.MyOrder;
 import com.project.service.OrderService;
 
@@ -28,6 +29,13 @@ public class OrderController {
 		MyOrder uporder= orderservice.addOrder(order, customerId, addressId);
 		return new ResponseEntity<MyOrder>(uporder,HttpStatus.ACCEPTED);
 	}
+	
+	@PostMapping("/addFromCart/{customerId}")
+	public ResponseEntity<MyOrder>addOrderFromCart(@PathVariable Integer customerId){
+		MyOrder myOrder=orderservice.addorderFromCart(customerId);
+		return new ResponseEntity<MyOrder>(myOrder,HttpStatus.ACCEPTED);
+	}
+	
 	@GetMapping("/findallOrder")
 	public ResponseEntity<List<MyOrder>>viewAllOrder(){
 		List<MyOrder>allOrder= orderservice.viewOrder();

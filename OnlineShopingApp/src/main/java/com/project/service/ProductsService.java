@@ -20,6 +20,7 @@ public interface ProductsService {
 	
 	public Products updateProductIncatalog(Products product);
 	
+	}
 	
 	
 	
@@ -32,26 +33,3 @@ public interface ProductsService {
 	
 	
 	
-	
-	
-	
-	
-	
-//	public Products getproductsById(int id);
-//	
-//	
-//	
-//	
-//	
-//	public Products getProductFromCatalogById(Integer id);
-//	
-//	public List<Products> getProductsByCategory(CategoryEnum catename);
-//	
-//	
-//	
-//	public List<ProductsDTO> funCategory(CategoryEnum cat);
-//	
-//	public Products addProductsByCategory(CategoryEnum cat ,Products products);
-	////////////////////////////////////////////
-	//public List<Products> getAllProductsIncatalog();
-}

@@ -1,0 +1,65 @@
+package com.project.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.project.model.Cart;
+import com.project.repository.CartDao;
+import com.project.service.CartService;
+
+@RestController
+@RequestMapping("/Cart")
+public class CartController {
+
+	@Autowired
+	private CartService cartService;
+	
+	@Autowired 
+	private CartDao cDao;
+	
+//	@PostMapping("/addtocart")
+//	public Cart saveCategoryHandler(@RequestBody Cart cart,String Name,Integer quantity) {
+//		
+//		return cartService.addProductToCart(cart, Name, 0);
+//	
+//	}
+	
+//	@PostMapping("/{name}/{quantity}")
+//	public ResponseEntity<Cart>addorder(@RequestBody Cart cart,@PathVariable String name,@PathVariable Integer quantity){
+//		Cart uporder= cartService.addProductToCart(cart, name, 0);
+//		return new ResponseEntity<Cart>(uporder,HttpStatus.ACCEPTED);
+//	}
+	
+	//To add the data we use this 
+	
+	@PostMapping("/addtocart/{id}/{custId}")
+	public ResponseEntity<Cart>addorder(@RequestBody Cart cart,@PathVariable Integer id,@PathVariable Integer custId){
+		Cart uporder= cartService.AddProduct(cart, id, custId);
+		return new ResponseEntity<Cart>(uporder,HttpStatus.ACCEPTED);
+	}
+	
+	//To view the cart data;
+	
+	@GetMapping("/cart")
+	public ResponseEntity<List<Cart>> getAllProductsHandler() {
+
+		List<Cart> list = cartService.ViewAllCart();
+
+		return new ResponseEntity<List<Cart>>(list, HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
+	
+}

@@ -10,7 +10,10 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
 public class Products {
 		

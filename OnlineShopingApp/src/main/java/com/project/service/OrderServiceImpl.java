@@ -135,11 +135,11 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public List<MyOrder> findOrderByUserName(String FirstName, String LastName) {
+	public List<MyOrder> findOrderByUserName(String FirstName, String LastName,String mobileNo) {
 		List<MyOrder>allOrder=orderdao.findAll();
 		List<MyOrder>findAllByName=new ArrayList<MyOrder>();
 		for(MyOrder order:allOrder) {
-			if(order.getCustomer().getFirstName().equals(FirstName)&& order.getCustomer().getLastName().equals(LastName)) {
+			if(order.getCustomer().getFirstName().equals(FirstName)&& order.getCustomer().getLastName().equals(LastName)&&order.getCustomer().getMobileNumber().equals(mobileNo) ) {
 			findAllByName.add(order);
 			}
 			

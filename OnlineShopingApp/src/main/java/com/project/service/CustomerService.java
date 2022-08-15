@@ -20,6 +20,6 @@ public interface CustomerService {
 	
 	public List<Customer> viewAllCustomerByLocation(String location);
 	
-	public Address addAddress(Address address);
+	public Customer addAddress(Address address,Integer customerId);
 
 }

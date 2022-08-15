@@ -48,9 +48,9 @@ public class OrderController {
 		return new ResponseEntity<MyOrder>(findOrder,HttpStatus.ACCEPTED);
 	}
 	
-	@GetMapping("/findOrderByUserName/{FirstName}/{LastName}")
-	public ResponseEntity<List<MyOrder>>viewByUserName(@PathVariable("FirstName") String FirstName,@PathVariable("LastName") String LastName){
-		List<MyOrder>getOrderByName= orderservice.findOrderByUserName(FirstName, LastName);
+	@GetMapping("/findOrderByUserName/{FirstName}/{LastName}/{mobileNo}")
+	public ResponseEntity<List<MyOrder>>viewByUserName(@PathVariable("FirstName") String FirstName,@PathVariable("LastName") String LastName,@PathVariable("mobileNo") String mobileNo ){
+		List<MyOrder>getOrderByName= orderservice.findOrderByUserName(FirstName, LastName,mobileNo);
 		return new ResponseEntity<List<MyOrder>>(getOrderByName,HttpStatus.ACCEPTED);
 	}
 	

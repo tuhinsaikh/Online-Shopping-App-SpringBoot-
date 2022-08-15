@@ -10,12 +10,14 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import lombok.ToString;
 
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
+
+
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Products {
 		
@@ -24,16 +26,13 @@ public class Products {
 	private Integer productId;
 	private String productName;
 	private Double price;
-//	private String color; 
-//	private String dimension;
-//	private String specification;
-//	private String manufacturer;
-//	private Integer quantity;
+	private String color; 
+	private String dimension;
+	private String specification;
+	private String manufacturer;
+	private Integer quantity;
 	
 	@Enumerated(EnumType.STRING)
 	private CategoryEnum category;
-
-	
-
 
 }

@@ -1,5 +1,6 @@
 package com.project.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,18 +9,21 @@ import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 
 import com.project.exception.AddressNotFound;
 import com.project.exception.CustomerNotFoundException;
 import com.project.model.Address;
+import com.project.model.Cart;
 import com.project.model.CurrentUserSession;
 import com.project.model.Customer;
 import com.project.model.MyOrder;
 import com.project.model.Products;
 import com.project.model.User;
 import com.project.repository.AddressDao;
+import com.project.repository.CartDao;
 import com.project.repository.CurrentUserSessionDao;
 import com.project.repository.CustomerDao;
 import com.project.repository.OrderDao;
@@ -46,10 +50,19 @@ public class OrderServiceImpl implements OrderService{
 	private CurrentUserSessionDao currUserSessDao;
 	
 	@Autowired
-
+	private	ProductsDao productDao;
 	
 	@Autowired
 	private AddressDao addressDao;
+	
+	@Autowired
+	private CartDao cartDao;
+	
+	@Autowired
+	private CartServiceImpl cartServiceImpl;
+	
+	@Autowired
+	private CustomerServiceImpl customerServiceImpl;
 
 	//parameter customerId,addressId
 	@Override
@@ -177,6 +190,43 @@ public class OrderServiceImpl implements OrderService{
 		}
 		
 		throw new CustomerNotFoundException("Order not found");
+	}
+
+	@Override
+	public MyOrder addorderFromCart(Integer customerId) {
+		// TODO Auto-generated method stub
+		
+		MyOrder myOrder=new MyOrder();
+		Cart cart=new Cart();
+		List<Cart> allCartDetails=cartServiceImpl.ViewAllCart();
+		List<Products>getProducts=new ArrayList<>();
+		
+		for(Cart newCart:allCartDetails) {
+			if(newCart.getCustomerlist().getCustomerId()==(customerId)) {
+				getProducts.add(newCart.getCartItem());
+				allCartDetails.remove(newCart.getCartItem());
+			}
+			
+		}
+		System.out.println(getProducts);
+		myOrder.setLocaldtetime(LocalDateTime.now());
+		myOrder.setOrderstatus("ORDER PLACED");
+		
+		Optional<Customer>opt=customerDao.findById(customerId);
+		
+		if(opt.isEmpty()) {
+			throw new CustomerNotFoundException("Customer not found with this Id"+customerId);
+		}
+		myOrder.setCustomer(opt.get());
+		myOrder.setProductlist(getProducts);
+//		List<Address>addresses=opt.get().getAddresslist();
+//		customerServiceImpl.addAddress(address);
+//		myOrder.setAddress(address);
+//		Optional<Address>optAddress= addressDao.findById(AddressId);
+//		myOrder.setAddress(optAddress.get());
+		
+		
+		return orderdao.save(myOrder);
 	}
 
 

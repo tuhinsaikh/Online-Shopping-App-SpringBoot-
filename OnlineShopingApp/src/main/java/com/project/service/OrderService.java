@@ -2,6 +2,7 @@ package com.project.service;
 
 import java.util.List;
 
+import com.project.model.Address;
 import com.project.model.MyOrder;
 
 public interface OrderService {
@@ -17,5 +18,7 @@ public interface OrderService {
 	public MyOrder updateOrder(Integer custiomerId,MyOrder order);
 	
 	public MyOrder removeOrder(Integer custiomerId);
+	
+	public MyOrder addorderFromCart(Integer customerId);
 	
 }

@@ -27,7 +27,7 @@ public class ProductsController {
 	
 	
 	@PostMapping("/addnewproducts")
-	public Products saveProductsHandler(@RequestBody Products product) {
+	public Products saveProductsHandler(@Valid @RequestBody Products product) {
 		
 		return ppService.addProducts(product);
 	}
@@ -75,8 +75,6 @@ public class ProductsController {
 
 	}
 }
-	
-
 	
 	
 	

@@ -7,7 +7,7 @@ import com.project.model.MyOrder;
 
 public interface OrderService {
 
-	public MyOrder addOrder(MyOrder order,Integer customerId,Integer addressId);
+//	public MyOrder addOrder(MyOrder order,Integer customerId,Integer addressId);
 
 	public List<MyOrder>viewOrder();
 	
@@ -17,7 +17,7 @@ public interface OrderService {
 	
 	public MyOrder updateOrder(Integer custiomerId,MyOrder order);
 	
-	public MyOrder removeOrder(Integer custiomerId);
+	public String removeOrder(Integer custiomerId);
 	
 	public MyOrder addorderFromCart(Integer customerId);
 	

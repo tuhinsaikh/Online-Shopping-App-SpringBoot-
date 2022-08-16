@@ -1,6 +1,6 @@
 package com.project.controller;
 
-import javax.websocket.server.PathParam;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,22 +24,22 @@ public class UserController {
 	private UserLoginService ulogService;
 	
 	@PostMapping("/regisrtration")
-	public User saveUserController(@RequestBody User user) {
+	public User saveUserController(@Valid @RequestBody User user) {
 		return uService.saveUer(user);
 	}
 	
 	@PostMapping("/login")
-	public String userLoginController(@RequestBody UserDTO userDto) {
+	public String userLoginController(@Valid @RequestBody UserDTO userDto) {
 		return ulogService.userLogin(userDto);
 	}
 	
 	@PutMapping("/updateUser/{key}")
-	public User updateUserCredentialController(@RequestBody User user, @PathVariable String key) {
+	public User updateUserCredentialController(@Valid @RequestBody User user, @PathVariable String key) {
 		return uService.updateUserCredential(user, key);
 	}
 	
 	@PostMapping("/logout/{key}")
-	public String userLogoutController(@PathVariable String key) {
+	public String userLogoutController(@Valid @PathVariable String key) {
 		return uService.userLogout(key);
 	}
 	

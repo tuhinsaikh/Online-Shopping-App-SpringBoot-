@@ -1,8 +1,14 @@
 package com.project.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 public class ProductsDTO {
 	
+	@NotNull(message = "please input a valid product name")
+	@Pattern(regexp = "(?i)(^[a-z]+)[a-z .,-]((?! .,-)$){1,25}$",message = "please input a valid product name")
 	private String productName;
+	@NotNull(message = "please input a valid product name")
 	private Double price;
 	
 	public ProductsDTO() {

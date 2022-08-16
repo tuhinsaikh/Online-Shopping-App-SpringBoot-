@@ -2,6 +2,8 @@ package com.project.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,13 +27,13 @@ public class AddressController {
 	private AddressService aService;
 	
 	@PostMapping("/")
-	public ResponseEntity<Address> saveAddressHandler(@RequestBody Address add){
+	public ResponseEntity<Address> saveAddressHandler(@Valid @RequestBody Address add){
 		Address savedAddress = aService.addAddress(add);
 		return new ResponseEntity<Address>(savedAddress,HttpStatus.ACCEPTED);
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<Address> updateAddressHandler(@RequestBody Address add){
+	public ResponseEntity<Address> updateAddressHandler(@Valid @RequestBody Address add){
 		Address updatedAddress=aService.updateAddress(add);
 		return new ResponseEntity<Address>(updatedAddress,HttpStatus.OK);
 		
@@ -44,7 +46,7 @@ public class AddressController {
 	}
 	
 	@GetMapping("/getaddress/{id}")
-	public ResponseEntity<Address> getAddressHandler(@PathVariable("id") Integer addressId){
+	public ResponseEntity<Address> getAddressHandler( @PathVariable("id") Integer addressId){
 		Address address = aService.viewAddress(addressId);
 		return new ResponseEntity<Address>(address,HttpStatus.OK);
 	}

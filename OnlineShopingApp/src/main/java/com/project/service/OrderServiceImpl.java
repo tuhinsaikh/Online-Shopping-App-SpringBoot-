@@ -69,7 +69,7 @@ public class OrderServiceImpl implements OrderService{
 		
 		for(Products p:products) {
 			
-			List<Products> pr = productDao.findByProductName(p.getProductName());
+			List<Products> pr = productsDao.findByProductName(p.getProductName());
 			if(pr.size()<=0) {
 				throw new CustomerNotFoundException("Product not found");
 			}

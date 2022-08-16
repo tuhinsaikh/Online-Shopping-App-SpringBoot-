@@ -63,58 +63,61 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Autowired
 	private CustomerServiceImpl customerServiceImpl;
+	
+	@Autowired
+	 private CartService cartService;
 
 	//parameter customerId,addressId
-	@Override
-	public MyOrder addOrder(MyOrder order, Integer customerId, Integer addressId) {
-		
-		order.setLocaldtetime(LocalDateTime.now());
-		order.setOrderstatus("accepted");
-		Optional< Customer> databaseCustomer = customerDao.findById(customerId);
-		
-		if(databaseCustomer.isEmpty()) {
-			throw new CustomerNotFoundException("customer not found");
-		}
-		Customer customer = databaseCustomer.get();
-		User user=  userDao.findByMobile(databaseCustomer.get().getMobileNumber());
-		String logedinOrNot = currUserSessDao.findByUserId(user.getUserId());
-		if(logedinOrNot==null) {
-			throw new CustomerNotFoundException("Customer not logged in");
-		}
-		
-		List<Products> products = order.getProductlist();
-		List<Products> products2=new ArrayList<Products>();
-		for(Products p:products) {
-			
-			List<Products> pr = productDao.findByProductName(p.getProductName());
-			if(pr.size()<=0) {
-			
-				throw new CustomerNotFoundException("Product not found");
-			}
-//			System.out.println(pr);
-			for(Products prd:pr) {
-				if(prd.getPrice().equals(p.getPrice())) {
-					products2.add(prd);
-				}
-				
-			}
-			
-			
-		}
-	
-		 order.setProductlist(products2);
-		
-		List<Address> customerAddr = customer.getAddresslist();
-		int count = 0;
-		for(Address addr: customerAddr) {
-			if(addr.getAddressId()==addressId) {
-				order.setAddress(addr);
-			}else count++;
-		}
-		if(count==customerAddr.size()) throw new AddressNotFound("Address not found with the customer Id"+customerId);
-		order.setCustomer(customer);	
-		return orderdao.save(order);
-	}
+//	@Override
+//	public MyOrder addOrder(MyOrder order, Integer customerId, Integer addressId) {
+//		
+//		order.setLocaldtetime(LocalDateTime.now());
+//		order.setOrderstatus("accepted");
+//		Optional< Customer> databaseCustomer = customerDao.findById(customerId);
+//		
+//		if(databaseCustomer.isEmpty()) {
+//			throw new CustomerNotFoundException("customer not found");
+//		}
+//		Customer customer = databaseCustomer.get();
+//		User user=  userDao.findByMobile(databaseCustomer.get().getMobileNumber());
+//		String logedinOrNot = currUserSessDao.findByUserId(user.getUserId());
+//		if(logedinOrNot==null) {
+//			throw new CustomerNotFoundException("Customer not logged in");
+//		}
+//		
+//		List<Products> products = order.getProductlist();
+//		List<Products> products2=new ArrayList<Products>();
+//		for(Products p:products) {
+//			
+//			List<Products> pr = productDao.findByProductName(p.getProductName());
+//			if(pr.size()<=0) {
+//			
+//				throw new CustomerNotFoundException("Product not found");
+//			}
+////			System.out.println(pr);
+//			for(Products prd:pr) {
+//				if(prd.getPrice().equals(p.getPrice())) {
+//					products2.add(prd);
+//				}
+//				
+//			}
+//			
+//			
+//		}
+//	
+//		 order.setProductlist(products2);
+//		
+//		List<Address> customerAddr = customer.getAddresslist();
+//		int count = 0;
+//		for(Address addr: customerAddr) {
+//			if(addr.getAddressId()==addressId) {
+//				order.setAddress(addr);
+//			}else count++;
+//		}
+//		if(count==customerAddr.size()) throw new AddressNotFound("Address not found with the customer Id"+customerId);
+//		order.setCustomer(customer);	
+//		return orderdao.save(order);
+//	}
 
 	@Override
 	public List<MyOrder> viewOrder() {
@@ -178,14 +181,27 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public MyOrder removeOrder(Integer custiomerId) {
+	public String removeOrder(Integer custiomerId) {
+		
 		List<MyOrder>allOrder=orderdao.findAll();
+		
 		
 		for(MyOrder order:allOrder) {
 			if(order.getCustomer().getCustomerId()==custiomerId) {
-			 orderdao.delete(order);
-			 
-			 return order;
+//			 orderdao.delete(order);
+				
+				User user=  userDao.findByMobile(order.getCustomer().getMobileNumber());
+				String logedinOrNot = currUserSessDao.findByUserId(user.getUserId());
+				if(logedinOrNot==null) {
+					throw new CustomerNotFoundException("Customer not logged in");
+				}
+				order.setCustomer(null);
+				order.setProductlist(null);
+				orderdao.save(order);
+				System.out.println(order);
+				orderdao.delete(order);
+				
+			 return "order canceled";
 			}
 		}
 		
@@ -219,14 +235,11 @@ public class OrderServiceImpl implements OrderService{
 		}
 		myOrder.setCustomer(opt.get());
 		myOrder.setProductlist(getProducts);
-//		List<Address>addresses=opt.get().getAddresslist();
-//		customerServiceImpl.addAddress(address);
-//		myOrder.setAddress(address);
-//		Optional<Address>optAddress= addressDao.findById(AddressId);
-//		myOrder.setAddress(optAddress.get());
+
+		MyOrder myOrder2= orderdao.save(myOrder);
+//		cartService.deleteAllCart();
 		
-		
-		return orderdao.save(myOrder);
+		return myOrder2;
 	}
 
 

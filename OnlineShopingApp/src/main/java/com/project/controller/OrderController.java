@@ -24,11 +24,11 @@ public class OrderController {
 	@Autowired
 	private OrderService orderservice;
 	
-	@PostMapping("/{customerId}/{addressId}")
-	public ResponseEntity<MyOrder>addorder(@RequestBody MyOrder order,@PathVariable Integer customerId,@PathVariable Integer addressId){
-		MyOrder uporder= orderservice.addOrder(order, customerId, addressId);
-		return new ResponseEntity<MyOrder>(uporder,HttpStatus.ACCEPTED);
-	}
+//	@PostMapping("/{customerId}/{addressId}")
+//	public ResponseEntity<MyOrder>addorder(@RequestBody MyOrder order,@PathVariable Integer customerId,@PathVariable Integer addressId){
+//		MyOrder uporder= orderservice.addOrder(order, customerId, addressId);
+//		return new ResponseEntity<MyOrder>(uporder,HttpStatus.ACCEPTED);
+//	}
 	
 	@PostMapping("/addFromCart/{customerId}")
 	public ResponseEntity<MyOrder>addOrderFromCart(@PathVariable Integer customerId){
@@ -55,9 +55,9 @@ public class OrderController {
 	}
 	
 	@DeleteMapping("removeOrder/{customerId}")
-	public ResponseEntity<MyOrder>removeOrderByCustomerID(@PathVariable Integer customerId){
-		MyOrder findOrder=orderservice.removeOrder(customerId);
+	public ResponseEntity<String>removeOrderByCustomerID(@PathVariable Integer customerId){
+		String findOrder=orderservice.removeOrder(customerId);
 		
-		return new ResponseEntity<MyOrder>(findOrder,HttpStatus.ACCEPTED);
+		return new ResponseEntity<String>(findOrder,HttpStatus.ACCEPTED);
 	}
 }

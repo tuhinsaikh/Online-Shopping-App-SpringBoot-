@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,24 +32,20 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)	
 	private Integer customerId;
+	@NotNull(message = "please input a valid name")
+	@Pattern(regexp = "(?i)(^[a-z]+)[a-z .,-]((?! .,-)$){1,25}$",message = "please input a valid name")
 	private String firstName;
+	@NotNull(message = "please input a valid name")
+	@Pattern(regexp = "(?i)(^[a-z]+)[a-z .,-]((?! .,-)$){1,25}$",message = "please input a valid name")
 	private String lastName;
+	@NotNull(message = "Please Enter your Mobile Number")
+	@Pattern(regexp = "[7896]{1}[0-9]{9}",message = "Input a valid mobile number")
 	private String mobileNumber;
+	@Pattern(regexp = "^(.+)@(\\S+)$",message = "Input a valid email address")
 	private String email;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "ADDRESS_ID", referencedColumnName = "addressId")
 	private List<Address> addresslist= new ArrayList<>();
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

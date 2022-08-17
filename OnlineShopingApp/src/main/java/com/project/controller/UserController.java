@@ -1,8 +1,10 @@
 package com.project.controller;
 
-import javax.websocket.server.PathParam;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,23 +26,28 @@ public class UserController {
 	private UserLoginService ulogService;
 	
 	@PostMapping("/regisrtration")
-	public User saveUserController(@RequestBody User user) {
-		return uService.saveUer(user);
+
+	public ResponseEntity<User> saveUserController(@Valid @RequestBody User user) {
+		User responseUser =  uService.saveUer(user);
+		return new  ResponseEntity<User>(responseUser, HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/login")
-	public String userLoginController(@RequestBody UserDTO userDto) {
-		return ulogService.userLogin(userDto);
+	public ResponseEntity<String> userLoginController(@Valid @RequestBody UserDTO userDto) {
+		String msg =  ulogService.userLogin(userDto);
+		return new ResponseEntity<String>(msg,HttpStatus.ACCEPTED);
 	}
 	
 	@PutMapping("/updateUser/{key}")
-	public User updateUserCredentialController(@RequestBody User user, @PathVariable String key) {
-		return uService.updateUserCredential(user, key);
+	public ResponseEntity<User> updateUserCredentialController(@Valid @RequestBody User user, @PathVariable String key) {
+		User responseUser =  uService.updateUserCredential(user, key);
+		return new ResponseEntity<User>(responseUser,HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("/logout/{key}")
-	public String userLogoutController(@PathVariable String key) {
-		return uService.userLogout(key);
+	public ResponseEntity<String> userLogoutController(@Valid @PathVariable String key) {
+		String msg =  uService.userLogout(key);
+		return new ResponseEntity<String>(msg,HttpStatus.ACCEPTED);
 	}
 	
 }

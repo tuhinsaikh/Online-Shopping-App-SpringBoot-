@@ -1,18 +1,23 @@
 package com.project.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
-import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.annotation.OptBoolean;
 import com.project.exception.CustomerNotFoundException;
+import com.project.exception.UserAlreadyExists;
 import com.project.model.Address;
 import com.project.model.Customer;
+import com.project.model.User;
 import com.project.repository.AddressDao;
+import com.project.repository.CurrentUserSessionDao;
 import com.project.repository.CustomerDao;
+import com.project.repository.UserDao;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -23,24 +28,44 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private AddressDao aDao;
 	
+	@Autowired
+	private UserDao userDao;
+	
+	@Autowired
+	private CurrentUserSessionDao userSessionDao;
+	
 
 	@Override
 	public Customer addCustomer(Customer customer) {
 		
 		List<Address> addresses= customer.getAddresslist();
 		
-		if(addresses.size()!=0) {
-			
-			for(Address address:addresses) {
-				
-				aDao.save(address);
-//				System.out.println(address);
-				
-			}
-			
-		}
+		String mobile= customer.getMobileNumber();
 		
-		return cDao.save(customer);
+			User user=  userDao.findByMobile(mobile);
+			Customer customerIspresent = cDao.findByMobileNumber(customer.getMobileNumber());
+			if(customerIspresent!=null) throw new UserAlreadyExists("already present with this mobile number");
+			if(user!=null) {
+				Integer user_Id= user.getUserId();
+				
+				String currentUserId= userSessionDao.findByUserId(user_Id);
+				if(currentUserId!=null) {
+					Integer id= Integer.parseInt(currentUserId);				
+					System.out.println(id);
+					if(addresses.size()!=0) {				
+						for(Address address:addresses) {				
+								aDao.save(address);
+								System.out.println(address);						
+						}					
+					}				
+					return cDao.save(customer);	
+				}
+				else {
+					throw new CustomerNotFoundException("Please login");
+				}	
+			}
+			else
+				throw new CustomerNotFoundException("Please login");
 	}
 
 	@Override
@@ -50,30 +75,26 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		Optional<Customer> opt = cDao.findById(customerId);
 		
-		if(opt.isPresent()) {
-			
-			Customer optCustomer= opt.get();
-			
-			List<Address> addresses= optCustomer.getAddresslist();
-			
-			if(addresses.size()!=0) {
+		Customer customerIspresent = cDao.findByMobileNumber(customer.getMobileNumber());
+//		if(customerIspresent==null) throw new UserAlreadyExists("already present with this mobile number");
+		if(customerIspresent!=null) {
+			if(opt.isPresent()) {
 				
-				for(Address address:addresses) {
-					
-//					Integer addressId= address.getAddressId();
-					
-					aDao.save(address);
-					
+				Customer optCustomer= opt.get();
+				List<Address> addresses= optCustomer.getAddresslist();
+				if(addresses.size()!=0) {
+					for(Address address:addresses) {
+//						Integer addressId= address.getAddressId();
+						aDao.save(address);
+					}
 				}
-				
-				
+				 return  cDao.save(customer);
 			}
-			
-			 return  cDao.save(customer);
+			else
+				throw new CustomerNotFoundException("Invalid Customer input.");
 		}
 		else
-			
-			throw new CustomerNotFoundException("Invalid Customer input.");
+			throw new CustomerNotFoundException("You Can't change Registered Mobile Number");
 	}
 
 	@Override
@@ -114,10 +135,31 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public List<Customer> viewAllCustomerByLocation(String location) {
 		
+		Set<Customer> customers= new HashSet<>(); 
 		
+		List<Address> addresses= aDao.findByCity(location);
 		
+		if(addresses.size()>0) {
+			
+			
+			
+		}
 		
 		return null;
+	}
+
+	@Override
+	public Customer addAddress(Address address,Integer customerId) {
+	Optional<Customer>optional=cDao.findById(customerId);
+		if(optional!=null) {
+			Customer customer=optional.get();
+			 customer.getAddresslist().add(address);
+		}
+//		return	aDao.save(address);
+		
+		Optional<Customer> optCustomer= cDao.findById(customerId);
+		return optCustomer.get();
+		 
 	}
 
 	

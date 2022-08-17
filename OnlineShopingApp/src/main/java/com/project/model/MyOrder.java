@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -24,6 +26,7 @@ import lombok.ToString;
 public class MyOrder {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	Integer orderid;
 	
 	LocalDateTime localdtetime;
@@ -33,7 +36,7 @@ public class MyOrder {
 	Customer customer;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	List<Product>productlist;
+	List<Products>productlist;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	Address address;

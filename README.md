@@ -4,16 +4,22 @@ Intro..
 This project is based on Online Shopping App using Java, Spring, SpringBoot, MySQL and Hibernate. There are 6 model classes in the project User, Customer, Address, Product, Cart and Order. The main goal of this project is to create a series of backend API’s so that the user can access the functionalities of the various types of functions of the models just like the functionalities one can get while shopping from any online website. This members responsible for the completion of this project are :
 
 Tuhin Saikh  (User functionalities)
+-----------
 
 Animesh Roy (Customer functionalities)
+-----------
 
 Sampanna Chatterjee (Address functionalities)
+-------------------
 
 Sourav Dhawa (Order functionalities)
+------------
 
 Shubham Mishra (Cart functionalities)
+--------------
 
 Chandankumar Surendra Mourya (Product functionalities)
+----------------------------
 
 Entity Relationship Diagram
 ---------------------------
